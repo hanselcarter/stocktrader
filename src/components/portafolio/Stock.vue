@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-6 col-md-4 col-xl-6">
-    <div class="panel panel-success">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">
           {{ stock.name }}
@@ -41,7 +41,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["sellStock"]),
+    ...mapActions({
+      placeSellOrder: "sellStock"
+    }),
     sellStock() {
       const order = {
         stockId: this.stock.id,
@@ -49,7 +51,8 @@ export default {
         quantity: this.quantity
       };
 
-      this.sellStock();
+      this.placeSellOrder(order);
+      this.quantity = 0;
     }
   }
 };
