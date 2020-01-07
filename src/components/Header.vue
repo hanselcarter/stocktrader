@@ -36,6 +36,16 @@
           </div>
         </li>
       </ul>
+      <strong class="navbar-text navbar-right"> funds: {{ funds }}</strong>
     </div>
   </nav>
 </template>
+<script>
+export default {
+  computed: {
+    funds() {
+      return this.$store.getters.funds;
+    }
+  }
+};
+</script>
