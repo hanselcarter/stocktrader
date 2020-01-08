@@ -17,23 +17,11 @@
         <li class="nav-item">
           <a class="nav-link" @click="endDay">end day</a>
         </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            save and load
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" @click="save">save</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" @click="load">load</a>
         </li>
       </ul>
       <strong class="navbar-text navbar-right">
@@ -51,10 +39,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["randomizeStocks"]),
+    ...mapActions(["randomizeStocks", "loadData"]),
     endDay() {
-      console.log("hola");
       this.randomizeStocks();
+    },
+    save() {
+      const data = {
+        funds: this.$store.getters.funds,
+        stocksPortafolio: this.$store.getters.stocksPortafolio,
+        stocks: this.$store.getters.stocks
+      };
+      this.$http.put("data.json", data);
+    },
+    load() {
+      this.loadData();
     }
   }
 };
